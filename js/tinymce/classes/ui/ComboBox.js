@@ -104,7 +104,7 @@ define("tinymce/ui/ComboBox", [
 				self._value = value;
 				self.removeClass('placeholder');
 
-				if (self._rendered && !self.getEl('inp').disabled) { // TODO: fix edge cases where input never gets enabled
+				if (self._rendered) {
 					self.getEl('inp').value = value;
 				}
 
