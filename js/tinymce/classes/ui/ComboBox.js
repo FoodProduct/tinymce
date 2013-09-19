@@ -104,7 +104,7 @@ define("tinymce/ui/ComboBox", [
 				self._value = value;
 				self.removeClass('placeholder');
 
-				if (self._rendered) {
+				if (self._rendered && !self.getEl('inp').disabled) { // TODO: fix edge cases where input never gets enabled
 					self.getEl('inp').value = value;
 				}
 
@@ -136,7 +136,7 @@ define("tinymce/ui/ComboBox", [
 
 			self._super(state);
 
-			if (self._rendered) {
+			if (self._rendered && state) {
 				self.getEl('inp').disabled = state;
 			}
 		},
@@ -212,6 +212,7 @@ define("tinymce/ui/ComboBox", [
 			var self = this, id = self._id, settings = self.settings, prefix = self.classPrefix;
 			var value = settings.value || settings.placeholder || '';
 			var icon, text, openBtnHtml = '';
+			var disabledHtml = settings.disabled ? ' disabled="disabled" ' : '';
 
 			icon = settings.icon ? prefix + 'ico ' + prefix + 'i-' + settings.icon : '';
 			text = self._text;
@@ -231,7 +232,7 @@ define("tinymce/ui/ComboBox", [
 
 			return (
 				'<div id="' + id + '" class="' + self.classes() + '">' +
-					'<input id="' + id + '-inp" class="' + prefix + 'textbox ' + prefix + 'placeholder" value="' +
+					'<input id="' + id + '-inp" class="' + prefix + 'textbox ' + prefix + 'placeholder"' + disabledHtml + 'value="' +
 					value + '" hidefocus="true">' +
 					openBtnHtml +
 				'</div>'
