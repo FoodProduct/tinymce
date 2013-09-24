@@ -419,6 +419,7 @@ define("tinymce/Editor", [
 				});
 
 				each(settings.plugins.split(/[ ,]/), function(plugin) {
+					var resourceLink = settings.revision ? '?v=' + settings.revision : '';
 					plugin = trim(plugin);
 
 					if (plugin && !PluginManager.urls[plugin]) {
@@ -431,7 +432,7 @@ define("tinymce/Editor", [
 								var defaultSettings = {
 									prefix:'plugins/',
 									resource: dep,
-									suffix:'/plugin' + suffix + '.js'
+									suffix:'/plugin' + suffix + '.js' + resourceLink
 								};
 
 								dep = PluginManager.createUrl(defaultSettings, dep);
@@ -441,7 +442,7 @@ define("tinymce/Editor", [
 							PluginManager.load(plugin, {
 								prefix: 'plugins/',
 								resource: plugin,
-								suffix: '/plugin' + suffix + '.js'
+								suffix: '/plugin' + suffix + '.js' + resourceLink
 							});
 						}
 					}
@@ -1563,10 +1564,10 @@ define("tinymce/Editor", [
 		 * @example
 		 * // Show progress for the active editor
 		 * tinymce.activeEditor.setProgressState(true);
-		 * 
+		 *
 		 * // Hide progress for the active editor
 		 * tinymce.activeEditor.setProgressState(false);
-		 * 
+		 *
 		 * // Show progress after 3 seconds
 		 * tinymce.activeEditor.setProgressState(true, 3000);
 		 */
